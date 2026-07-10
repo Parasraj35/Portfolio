@@ -19,6 +19,9 @@
     --accent: #2F4739;
     --accent-soft: #E1E9E1;
     --accent-2: #A5482E;
+    --terminal-green: #7FD9A8;
+    --terminal-amber: #E8B15B;
+    --terminal-blue: #8FA9C9;
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -93,6 +96,15 @@
   .stat-num{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:34px; color:var(--accent);}
   .stat-label{font-size:12.5px; color:var(--ink-dim); margin-top:4px;}
 
+  /* ACADEMIC CARD (replaces stat grid) */
+  .academic-card{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:32px;}
+  .academic-title{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:22px; text-align:center; margin-bottom:22px;}
+  .academic-pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding-bottom:22px; border-bottom:1px solid var(--line); margin-bottom:20px;}
+  .academic-pillars div{font-size:11.5px; font-weight:600; text-align:center; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.03em; line-height:1.5;}
+  .academic-pillars div span{color:var(--ink); font-family:var(--font-mono); text-transform:none; letter-spacing:0; font-size:12.5px;}
+  .academic-summary p{font-size:13.5px; color:var(--ink-dim); line-height:1.65;}
+  .academic-summary strong{color:var(--ink); font-weight:600;}
+
   /* WHAT I DO */
   .do-list{border-top:1px solid var(--line);}
   .do-item{
@@ -109,15 +121,20 @@
   .work-grid{display:grid; grid-template-columns:1fr; gap:24px;}
   @media(min-width:820px){.work-grid{grid-template-columns:1fr 1fr;}}
   .work-card{background:var(--card); border:1px solid var(--line); border-radius:20px; overflow:hidden; display:flex; flex-direction:column;}
-  .work-visual{
-    background:var(--ink); color:#EDEEEA; padding:22px 20px; font-family:var(--font-mono); font-size:12px;
-    line-height:1.7; min-height:150px;
+  .work-thumb{
+    position:relative; aspect-ratio:16/9; background:linear-gradient(135deg, var(--accent-soft), var(--bg-alt));
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .work-thumb img{width:100%; height:100%; object-fit:cover;}
+  .work-thumb .thumb-fallback{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); letter-spacing:0.03em;}
+  .work-thumb-badge{
+    position:absolute; top:12px; right:12px; background:rgba(30,33,28,0.85); color:#F1EFE9; font-family:var(--font-mono);
+    font-size:11px; font-weight:500; padding:6px 11px; border-radius:100px; display:flex; align-items:center; gap:5px;
   }
   .work-visual .c1{color:#7FD9A8;} .work-visual .c2{color:#E8B15B;} .work-visual .c3{color:#8FA9C9;}
   .work-body{padding:24px;}
-  .work-title{font-size:17px; font-weight:600; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;}
-  .work-title a{font-size:12.5px; font-weight:600; color:var(--accent); white-space:nowrap;}
-  .work-desc{color:var(--ink-dim); font-size:14px; margin-bottom:16px;}
+  .work-title{font-size:17px; font-weight:600; margin-bottom:8px;}
+  .work-desc{color:var(--ink-dim); font-size:14px; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
   .work-tags{display:flex; flex-wrap:wrap; gap:8px;}
   .tag{font-family:var(--font-mono); font-size:11px; padding:4px 10px; border-radius:100px; background:var(--accent-soft); color:var(--accent);}
 
@@ -131,19 +148,33 @@
 
   /* CONTACT */
   .contact-section{padding:100px 0; text-align:center;}
-  .contact-headline{font-family:var(--font-sans); font-weight:600; font-size:clamp(30px,5vw,50px); letter-spacing:-0.01em; margin-bottom:26px;}
-  .contact-cta{display:inline-flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;}
+  .contact-headline{font-family:var(--font-sans); font-weight:600; font-size:clamp(30px,5vw,50px); letter-spacing:-0.01em; margin-bottom:46px;}
   .btn-solid{background:var(--ink); color:var(--bg); font-weight:600; font-size:14px; padding:15px 28px; border-radius:100px;}
   .btn-solid:hover{background:var(--accent);}
   .btn-outline{border:1px solid var(--line); font-weight:600; font-size:14px; padding:15px 28px; border-radius:100px;}
   .btn-outline:hover{border-color:var(--accent); color:var(--accent);}
 
-  .contact-form{max-width:520px; margin:8px auto 0; text-align:left; display:flex; flex-direction:column; gap:14px;}
-  .form-row{display:grid; grid-template-columns:1fr; gap:14px;}
+  .contact-split{display:grid; grid-template-columns:1fr; gap:24px; text-align:left;}
+  @media(min-width:860px){.contact-split{grid-template-columns:0.85fr 1.15fr; gap:28px;}}
+
+  .contact-info-card{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:32px;}
+  .contact-info-card h3{font-size:19px; font-weight:600; margin-bottom:10px;}
+  .contact-info-desc{color:var(--ink-dim); font-size:14px; line-height:1.6; margin-bottom:28px;}
+  .info-row{display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-top:1px solid var(--line);}
+  .info-row:first-of-type{border-top:none;}
+  .info-icon{font-size:17px; line-height:1.4;}
+  .info-label{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:3px;}
+  .info-value{font-size:14px; font-weight:500;}
+  .info-value a{color:var(--ink);}
+  .info-value a:hover{color:var(--accent);}
+
+  .contact-form{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:32px; display:flex; flex-direction:column; gap:18px;}
+  .form-row{display:grid; grid-template-columns:1fr; gap:18px;}
   @media(min-width:560px){.form-row{grid-template-columns:1fr 1fr;}}
+  .field-group label{display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;}
   .contact-form input, .contact-form textarea{
     width:100%; font-family:var(--font-sans); font-size:14.5px; color:var(--ink);
-    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 16px;
+    background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:13px 16px;
     resize:vertical; transition:border-color .15s ease;
   }
   .contact-form input::placeholder, .contact-form textarea::placeholder{color:var(--ink-faint);}
@@ -157,6 +188,71 @@
   footer{border-top:1px solid var(--line); padding:28px 0;}
   footer .wrap{display:flex; flex-direction:column; gap:8px; align-items:center; text-align:center; font-size:12.5px; color:var(--ink-faint); font-family:var(--font-mono);}
   @media(min-width:640px){footer .wrap{flex-direction:row; justify-content:space-between;}}
+
+  /* HERO RESUME BUTTON */
+  .btn-resume{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12.5px; font-weight:500;
+    color:var(--accent); background:var(--accent-soft); border:1px solid var(--line); padding:10px 18px; border-radius:100px;
+    cursor:pointer; transition:border-color .15s ease;
+  }
+  .btn-resume:hover{border-color:var(--accent);}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:26px;}
+
+  /* WORK CARD VIEW-PROJECT BUTTON */
+  .work-foot{display:flex; align-items:center; gap:10px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line);}
+  .btn-view{
+    flex:1; font-family:var(--font-sans); font-size:13.5px; font-weight:600; color:var(--bg); background:var(--accent);
+    padding:13px 16px; border-radius:12px; cursor:pointer; border:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn-view:hover{opacity:0.9;}
+  .btn-view-icon{
+    width:44px; height:44px; flex-shrink:0; border-radius:12px; border:1px solid var(--line); background:transparent;
+    color:var(--ink); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer;
+  }
+  .btn-view-icon:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* TERMINAL-CHROME MODAL (signature element) */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(6,7,8,0.75); backdrop-filter:blur(4px); z-index:200;
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .term-window{
+    width:100%; max-width:640px; max-height:88vh; overflow-y:auto; background:var(--bg-alt);
+    border:1px solid var(--line); border-radius:14px; box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  }
+  .term-titlebar{
+    display:flex; align-items:center; gap:10px; padding:13px 16px; border-bottom:1px solid var(--line);
+    background:var(--card); border-radius:14px 14px 0 0; position:sticky; top:0; z-index:2;
+  }
+  .term-dots{display:flex; gap:7px;}
+  .term-dots span{width:11px; height:11px; border-radius:50%; display:block;}
+  .term-dots span:nth-child(1){background:#E8615B;} .term-dots span:nth-child(2){background:#E8B15B;} .term-dots span:nth-child(3){background:#7FD9A8;}
+  .term-title{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); flex:1; text-align:center;}
+  .term-close{font-family:var(--font-mono); font-size:15px; color:var(--ink-faint); cursor:pointer; background:none; border:none; padding:2px 6px;}
+  .term-close:hover{color:var(--ink);}
+  .term-body{padding:24px;}
+
+  .carousel{position:relative; border-radius:10px; overflow:hidden; background:var(--ink); aspect-ratio:16/10; margin-bottom:20px;}
+  .carousel-track{display:flex; height:100%; transition:transform .3s ease;}
+  .carousel-slide{min-width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;}
+  .carousel-slide .ph-icon{font-family:var(--font-mono); font-size:12px; color:#7C8489; letter-spacing:0.04em;}
+  .carousel-nav{position:absolute; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:rgba(10,11,13,0.6); color:#EDEEEA; border:1px solid rgba(255,255,255,0.15); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px;}
+  .carousel-nav:hover{background:rgba(10,11,13,0.85);}
+  .carousel-prev{left:10px;} .carousel-next{right:10px;}
+  .carousel-dots{position:absolute; bottom:12px; left:0; right:0; display:flex; justify-content:center; gap:6px;}
+  .carousel-dots span{width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.35);}
+  .carousel-dots span.active{background:#fff;}
+
+  .modal-title{font-size:19px; font-weight:600; margin-bottom:6px;}
+  .modal-desc{color:var(--ink-dim); font-size:14.5px; line-height:1.65; margin-bottom:18px;}
+  .modal-tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .modal-links{display:flex; gap:12px; flex-wrap:wrap;}
+  .modal-links a{font-family:var(--font-mono); font-size:12.5px; font-weight:500; color:var(--bg); background:var(--accent); padding:10px 18px; border-radius:100px;}
+  .modal-links a.secondary{background:transparent; color:var(--accent); border:1px solid var(--line);}
+
+  .resume-body{display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; padding:8px 0 4px;}
+  .resume-body p{color:var(--ink-dim); font-size:14px; max-width:44ch;}
 </style>
 </head>
 <body>
@@ -185,7 +281,9 @@
         <a href="https://www.linkedin.com/in/paras-raj-/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="https://www.instagram.com/paras.rx/" target="_blank" rel="noopener">Instagram ↗</a>
         <a href="https://wa.me/923013524476" target="_blank" rel="noopener">WhatsApp ↗</a>
-        
+      </div>
+      <div class="hero-actions">
+        <button type="button" class="btn-resume" onclick="openResume()">View Resume ↗</button>
       </div>
       <div class="scroll-cue">
         <div class="scroll-dot">↓</div>
@@ -219,11 +317,19 @@
           <p>Skilled in Java, Python, C++, and SQL, with working knowledge of HTML/CSS/JS. Certified in SQL & Relational Databases (IBM) and Prompt Engineering (AWS).</p>
           <P>Looking for a Java Development / Software Engineering internship where I can apply what I've built and keep growing. Open to remote or on-site opportunities.</P>
         </div>
-      <div class="stat-grid">
-        <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Certifications completed</div></div>
-        <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Core languages &amp; tools</div></div>
-        <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Full CRUD system shipped</div></div>
-        <div class="stat-card"><div class="stat-num">Final</div><div class="stat-label">Year of BS SE</div></div>
+      <div class="academic-card">
+        <h3 class="academic-title">Academic</h3>
+        <div class="academic-pillars">
+          <div>Final-Year Student</div>
+          <div>Multiple Academic Projects</div>
+          <div>Continuous Learning</div>
+        </div>
+        <div class="academic-divider"></div>
+        <div class="academic-summary">
+          <span class="section-tag" style="margin-bottom:10px;">Summary</span>
+          <p><strong>Career Objective:</strong> To secure an internship or entry-level role where I can apply my academic knowledge, sharpen my technical skills, and contribute to real software projects.</p>
+          <p style="margin-top:12px;"><strong>Education:</strong> BS Software Engineering — SZABIST Hyderabad (2023–2027)</p>
+        </div>
       </div>
     </div>
   </div>
@@ -259,65 +365,7 @@
   <div class="wrap">
     <span class="section-tag">03 — Selected Work</span>
     <h2>Things I've built.</h2>
-    <div class="work-grid">
-      <div class="work-card">
-        <div class="work-visual">
-<span class="c1">$</span> java StudentManager<br>
-<span class="c3">====================</span><br>
-1. Add Student<br>
-2. View Students<br>
-3. Update Record<br>
-4. Delete Student<br>
-5. Menu<br>
-<span class="c2">> </span><span style="border-right:1px solid #7FD9A8;">&nbsp;</span>
-        </div>
-        <div class="work-body">
-          <div class="work-title">Student Management System <a href="https://github.com/Parasraj35/Student-Management-System" target="_blank" rel="noopener">Source ↗</a></div>
-          <p class="work-desc">A console-based CRUD application built from scratch in Java — full create, read, update, and delete flows behind a persistent do-while menu, structured with inheritance and inner classes.</p>
-          <div class="work-tags"><span class="tag">Java</span><span class="tag">OOP</span><span class="tag">CRUD</span></div>
-        </div>
-      </div>
-         <div class="work-card">
-        <div class="work-visual">
-<span class="c1">$</span> offshoredrip --routes<br>
-<span class="c3">====================</span><br>
-1. Home<br>
-2. Products<br>
-3. Cart<br>
-4. Checkout<br>
-5. Order Success<br>
-6. Admin (auth required)<br>
-<span class="c2">> </span><span style="border-right:1px solid #7FD9A8;">&nbsp;</span>
-        </div>
-        <div class="work-body">
-          <div class="work-title"><a href="https://github.com/Parasraj35/OffshoreDrip" target="_blank" rel="noopener">
-  Source ↗
-</a>
-<span> | </span>
-<a href="https://offshoreddrip.infinityfree.io/?i=1" target="_blank" rel="noopener">
-  Live ↗
-</a>
-          </div>
-          <p class="work-desc">A complete e-commerce website built solo for a shoe retail business, covering the full customer journey — home, product listings, cart, payment, and order success pages — alongside contact, policy, return policy, and business detail pages. Includes a full authentication system and an admin portal for 
-            managing live product listings, including media and video uploads. Backend built in PHP with a MySQL database.</p>
-          <div class="work-tags"><span class="tag">PHP</span><span class="tag">MYSQL</span><span class="tag">Full-stack</span><span class="tag">Admin Portal</span><span class="tag">Authentication</span></div>
-        </div>
-      </div>
-      <div class="work-card">
-        <div class="work-visual">
-<span class="c1">✓</span> AIG — Cybersecurity Simulation<br>
-<span class="c1">✓</span> Deloitte — Data Analytics Simulation<br>
-<span class="c3">--------------------------------</span><br>
-<span class="c2">status:</span> completed, Forage-verified
-        </div>
-        <div class="work-body">
-          <div class="work-title">Professional Job Simulations</div>
-          <p class="work-desc">Hands-on simulations of real corporate workflows — threat analysis and reporting with AIG, and data analytics case work with Deloitte — completed through Forage.</p>
-          <div class="work-tags"><span class="tag">Cybersecurity</span><span class="tag">Data Analytics</span></div>
-        </div>
-      </div>
-      
-    </div>
+    <div class="work-grid" id="work-grid"></div>
   </div>
 </section>
 
@@ -338,22 +386,57 @@
   <div class="wrap">
     <span class="section-tag">05 — Contact</span>
     <div class="contact-headline">Let's build something <span class="em">reliable</span> together.</div>
-    <div class="contact-cta">
-      <a class="btn-outline" href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="btn-outline" href="https://github.com/Parasraj35" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn-outline" href="https://www.instagram.com/paras.rx/" target="_blank" rel="noopener">Instagram ↗</a>
-      <a class="btn-outline" href="https://wa.me/923013524476" target="_blank" rel="noopener">WhatsApp ↗</a>
-    </div>
 
-    <form id="contact-form" class="contact-form">
-      <div class="form-row">
-        <input type="text" name="name" placeholder="Your name" required>
-        <input type="email" name="email" placeholder="Your email" required>
+    <div class="contact-split">
+      <div class="contact-info-card">
+        <h3>Contact Directives</h3>
+        <p class="contact-info-desc">Reach out directly for project inquiries, collaboration, or internship opportunities — I usually reply within a day.</p>
+
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <div><div class="info-label">Primary Hub</div><div class="info-value">Hyderabad, Sindh, Pakistan</div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">✉️</span>
+          <div><div class="info-label">Email</div><div class="info-value"><a href="mailto:parasraj@example.com">parasraj@example.com</a></div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">💬</span>
+          <div><div class="info-label">WhatsApp</div><div class="info-value"><a href="https://wa.me/923013524476" target="_blank" rel="noopener">+92 301 3524476</a></div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🔗</span>
+          <div><div class="info-label">GitHub</div><div class="info-value"><a href="https://github.com/Parasraj35" target="_blank" rel="noopener">github.com/Parasraj35</a></div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">💼</span>
+          <div><div class="info-label">LinkedIn</div><div class="info-value"><a href="https://www.linkedin.com/in/paras-raj-/" target="_blank" rel="noopener">linkedin.com/in/paras-raj-</a></div></div>
+        </div>
       </div>
-      <textarea name="message" rows="4" placeholder="What do you want to say?" required></textarea>
-      <button type="submit" class="btn-solid" id="form-submit">Send message</button>
-      <p id="form-status" class="form-status"></p>
-    </form>
+
+      <form id="contact-form" class="contact-form">
+        <div class="form-row">
+          <div class="field-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="field-group">
+            <label>Your Email</label>
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Subject</label>
+          <input type="text" name="subject" placeholder="What's this about?">
+        </div>
+        <div class="field-group">
+          <label>Message</label>
+          <textarea name="message" rows="5" placeholder="Tell me about your project or idea…" required></textarea>
+        </div>
+        <button type="submit" class="btn-solid" id="form-submit">Send message</button>
+        <p id="form-status" class="form-status"></p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -363,6 +446,50 @@
     <span>Hyderabad, Sindh, Pakistan</span>
   </div>
 </footer>
+
+<!-- PROJECT DETAIL MODAL -->
+<div class="modal-overlay" id="project-modal" onclick="if(event.target===this) closeModals()">
+  <div class="term-window">
+    <div class="term-titlebar">
+      <div class="term-dots"><span></span><span></span><span></span></div>
+      <span class="term-title" id="project-modal-path">~/projects/view</span>
+      <button class="term-close" onclick="closeModals()">✕</button>
+    </div>
+    <div class="term-body">
+      <div class="carousel" id="project-carousel">
+        <div class="carousel-track" id="carousel-track"></div>
+        <button class="carousel-nav carousel-prev" onclick="carouselMove(-1)">‹</button>
+        <button class="carousel-nav carousel-next" onclick="carouselMove(1)">›</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+      <div class="modal-title" id="project-modal-title"></div>
+      <p class="modal-desc" id="project-modal-desc"></p>
+      <div class="modal-tags" id="project-modal-tags"></div>
+      <div class="modal-links" id="project-modal-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME MODAL -->
+<div class="modal-overlay" id="resume-modal" onclick="if(event.target===this) closeModals()">
+  <div class="term-window" style="max-width:420px;">
+    <div class="term-titlebar">
+      <div class="term-dots"><span></span><span></span><span></span></div>
+      <span class="term-title">~/resume</span>
+      <button class="term-close" onclick="closeModals()">✕</button>
+    </div>
+    <div class="term-body">
+      <div class="resume-body">
+        <div class="modal-title">Paras Raj — Resume</div>
+        <p>View or download the latest copy of my resume as a PDF.</p>
+        <div class="modal-links">
+          <a href="./resume.pdf" target="_blank" rel="noopener">Open Resume ↗</a>
+          <a href="./resume.pdf" download class="secondary">Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 const form = document.getElementById('contact-form');
@@ -403,6 +530,143 @@ form.addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Send message';
   }
 });
+
+/* ---------- PROJECTS: default data + localStorage override ---------- */
+const DEFAULT_PROJECTS = [
+  {
+    id: "student-manager",
+    title: "Student Management System",
+    terminal: "$ java StudentManager\n====================\n1. Add Student\n2. View Students\n3. Update Record\n4. Delete Student\n5. Menu",
+    desc: "A console-based CRUD application built from scratch in Java — full create, read, update, and delete flows behind a persistent do-while menu, structured with inheritance and inner classes.",
+    tags: ["Java", "OOP", "CRUD"],
+    images: [],
+    links: [{ label: "Source ↗", url: "https://github.com/Parasraj35/Student-Management-System" }]
+  },
+  {
+    id: "offshoredrip",
+    title: "OffshoreDrip",
+    terminal: "$ offshoredrip --routes\n====================\n1. Home\n2. Products\n3. Cart\n4. Checkout\n5. Order Success\n6. Admin (auth required)",
+    desc: "A complete e-commerce website built solo for a shoe retail business, covering the full customer journey — home, product listings, cart, payment, and order success pages — alongside contact, policy, return policy, and business detail pages. Includes a full authentication system and an admin portal for managing live product listings, including media and video uploads. Backend built in PHP with a MySQL database.",
+    tags: ["PHP", "MySQL", "Full-stack", "Admin Portal", "Authentication"],
+    images: [],
+    links: [
+      { label: "Source ↗", url: "https://github.com/Parasraj35/OffshoreDrip" },
+      { label: "Live ↗", url: "https://offshoreddrip.infinityfree.io/?i=1" }
+    ]
+  },
+  {
+    id: "job-sims",
+    title: "Professional Job Simulations",
+    terminal: "✓ AIG — Cybersecurity Simulation\n✓ Deloitte — Data Analytics Simulation\n--------------------------------\nstatus: completed, Forage-verified",
+    desc: "Hands-on simulations of real corporate workflows — threat analysis and reporting with AIG, and data analytics case work with Deloitte — completed through Forage.",
+    tags: ["Cybersecurity", "Data Analytics"],
+    images: [],
+    links: []
+  }
+];
+
+function loadProjects(){
+  try{
+    const raw = localStorage.getItem('pr_projects');
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed) && parsed.length) return parsed;
+    }
+  }catch(e){ /* fall through to defaults */ }
+  return DEFAULT_PROJECTS;
+}
+
+let PROJECTS = loadProjects();
+let currentProject = null;
+let currentSlide = 0;
+
+function escapeHtml(str){
+  return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function renderWorkGrid(){
+  const grid = document.getElementById('work-grid');
+  if(!grid) return;
+  grid.innerHTML = PROJECTS.map((p, i) => {
+    const tags = (p.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+    const images = p.images || [];
+    const thumb = images.length
+      ? `<img src="${escapeHtml(images[0])}" alt="${escapeHtml(p.title)}">`
+      : `<span class="thumb-fallback">◧ preview coming soon</span>`;
+    const badge = images.length ? `<div class="work-thumb-badge">▤ ${images.length} Image${images.length > 1 ? 's' : ''}</div>` : '';
+    const links = p.links || [];
+    const iconLink = links.find(l => /github/i.test(l.url || '')) || links[0];
+    const iconBtn = iconLink
+      ? `<a class="btn-view-icon" href="${escapeHtml(iconLink.url)}" target="_blank" rel="noopener" title="${escapeHtml(iconLink.label)}">↗</a>`
+      : '';
+    return `
+      <div class="work-card">
+        <div class="work-thumb">${thumb}${badge}</div>
+        <div class="work-body">
+          <div class="work-title">${escapeHtml(p.title)}</div>
+          <p class="work-desc">${escapeHtml(p.desc || '')}</p>
+          <div class="work-tags">${tags}</div>
+          <div class="work-foot">
+            <button type="button" class="btn-view" onclick="openProject(${i})">View Project ↗</button>
+            ${iconBtn}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function buildCarousel(images){
+  const track = document.getElementById('carousel-track');
+  const dots = document.getElementById('carousel-dots');
+  const slides = (images && images.length) ? images : [null];
+  track.innerHTML = slides.map(src => src
+    ? `<div class="carousel-slide"><img src="${escapeHtml(src)}" alt="" style="width:100%;height:100%;object-fit:cover;"></div>`
+    : `<div class="carousel-slide"><span class="ph-icon">◧ image coming soon</span></div>`
+  ).join('');
+  dots.innerHTML = slides.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('');
+  currentSlide = 0;
+  document.getElementById('project-carousel').dataset.count = slides.length;
+}
+
+function carouselMove(dir){
+  const track = document.getElementById('carousel-track');
+  const dots = document.getElementById('carousel-dots').children;
+  const count = parseInt(document.getElementById('project-carousel').dataset.count || '1', 10);
+  currentSlide = (currentSlide + dir + count) % count;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  Array.from(dots).forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+
+function openProject(i){
+  const p = PROJECTS[i];
+  if(!p) return;
+  currentProject = p;
+  document.getElementById('project-modal-path').textContent = `~/projects/${p.id || 'view'}`;
+  document.getElementById('project-modal-title').textContent = p.title;
+  document.getElementById('project-modal-desc').textContent = p.desc || '';
+  document.getElementById('project-modal-tags').innerHTML = (p.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+  document.getElementById('project-modal-links').innerHTML = (p.links || []).map((l, idx) =>
+    `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener" class="${idx > 0 ? 'secondary' : ''}">${escapeHtml(l.label)}</a>`
+  ).join('') || '';
+  buildCarousel(p.images);
+  document.getElementById('project-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openResume(){
+  document.getElementById('resume-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModals(){
+  document.getElementById('project-modal').classList.remove('open');
+  document.getElementById('resume-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModals(); });
+
+renderWorkGrid();
 </script>
 
 </body>

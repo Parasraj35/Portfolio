@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Paras Raj Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F2EA;
+    --bg-alt: #EFEADD;
+    --card: #FCFAF5;
+    --ink: #1E211C;
+    --ink-dim: #5C6058;
+    --ink-faint: #9A9C93;
+    --line: #E0DBCB;
+    --accent: #2F4739;
+    --accent-soft: #E1E9E1;
+    --danger: #A5482E;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--font-sans); line-height:1.6; padding:0 0 80px;}
+  a{color:var(--accent);}
+  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
+  header{border-bottom:1px solid var(--line); padding:26px 0; margin-bottom:8px;}
+  header .wrap{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
+  .logo{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:19px;}
+  .logo span{color:var(--accent);}
+  header a.back{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-dim);}
+  header a.back:hover{color:var(--accent);}
+
+  .banner{
+    background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+    font-size:13.5px; color:var(--ink-dim); margin:24px 0 32px;
+  }
+  .banner b{color:var(--accent);}
+
+  h1{font-size:24px; font-weight:600; margin-bottom:6px;}
+  .sub{color:var(--ink-dim); font-size:14px; margin-bottom:28px;}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;}
+  button{font-family:var(--font-sans); cursor:pointer; border:none;}
+  .btn{font-size:13.5px; font-weight:600; padding:11px 18px; border-radius:100px; background:var(--ink); color:var(--bg);}
+  .btn:hover{background:var(--accent);}
+  .btn-outline{font-size:13.5px; font-weight:600; padding:11px 18px; border-radius:100px; background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-outline:hover{border-color:var(--accent); color:var(--accent);}
+  .btn-danger{font-size:12px; font-weight:600; padding:8px 14px; border-radius:100px; background:transparent; color:var(--danger); border:1px solid var(--line);}
+  .btn-danger:hover{border-color:var(--danger);}
+  .btn-small{font-size:12px; font-weight:600; padding:8px 14px; border-radius:100px; background:var(--card); color:var(--ink); border:1px solid var(--line);}
+  .btn-small:hover{border-color:var(--accent); color:var(--accent);}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin-bottom:18px;}
+  .card-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; gap:10px;}
+  .card-head h3{font-size:16px; font-weight:600;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;}
+  .field input, .field textarea{
+    width:100%; font-family:var(--font-sans); font-size:14px; color:var(--ink);
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:10px; padding:11px 14px; resize:vertical;
+  }
+  .field textarea{font-family:var(--font-mono); font-size:12.5px;}
+  .field input:focus, .field textarea:focus{outline:none; border-color:var(--accent);}
+  .field .hint{font-size:11.5px; color:var(--ink-faint); margin-top:5px;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media(max-width:600px){.row2{grid-template-columns:1fr;}}
+
+  .links-list, .images-list{display:flex; flex-direction:column; gap:8px; margin-bottom:10px;}
+  .link-row, .image-row{display:flex; gap:8px;}
+  .link-row input, .image-row input{flex:1;}
+
+  #status{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--bg);
+    font-family:var(--font-mono); font-size:12.5px; font-weight:600; padding:11px 20px; border-radius:100px;
+    opacity:0; transition:opacity .25s ease; pointer-events:none; z-index:50;}
+  #status.show{opacity:1;}
+
+  .empty{color:var(--ink-faint); font-size:13.5px; text-align:center; padding:30px 0;}
+  textarea#export-box{width:100%; min-height:160px; font-family:var(--font-mono); font-size:11.5px; background:var(--bg-alt); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Paras Raj <span>· admin</span></div>
+    <a class="back" href="./index.html">← Back to site</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="banner">
+    <b>How this works:</b> This page is a lightweight, backend-free admin. Changes you save here are stored in
+    <b>this browser's local storage</b> — they'll show up on <code>index.html</code> when you open it on this same
+    browser/device, but visitors on other devices won't see them, since this is a static site with no server or database.
+    To make a change permanent for everyone, use <b>Export JSON</b> below and paste it into the <code>DEFAULT_PROJECTS</code>
+    array in <code>index.html</code>, then re-upload the file wherever it's hosted.
+  </div>
+
+  <h1>Manage projects</h1>
+  <p class="sub">Add, edit, or remove the project cards shown in your portfolio's "Selected Work" section.</p>
+
+  <div class="toolbar">
+    <button class="btn" onclick="addProject()">+ Add project</button>
+    <button class="btn-outline" onclick="resetToDefaults()">Reset to defaults</button>
+    <button class="btn-outline" onclick="showExport()">Export JSON</button>
+  </div>
+
+  <div id="project-list"></div>
+
+  <div class="card" id="export-card" style="display:none;">
+    <div class="card-head"><h3>Export JSON</h3><button class="btn-small" onclick="copyExport()">Copy</button></div>
+    <textarea id="export-box" readonly></textarea>
+    <p class="field hint" style="margin-top:8px;">Paste this in place of <code>DEFAULT_PROJECTS</code> in index.html to make it permanent for all visitors.</p>
+  </div>
+</div>
+
+<div id="status"></div>
+
+<script>
+const DEFAULT_PROJECTS = [
+  {
+    id: "student-manager",
+    title: "Student Management System",
+    terminal: "$ java StudentManager\n====================\n1. Add Student\n2. View Students\n3. Update Record\n4. Delete Student\n5. Menu",
+    desc: "A console-based CRUD application built from scratch in Java — full create, read, update, and delete flows behind a persistent do-while menu, structured with inheritance and inner classes.",
+    tags: ["Java", "OOP", "CRUD"],
+    images: [],
+    links: [{ label: "Source ↗", url: "https://github.com/Parasraj35/Student-Management-System" }]
+  },
+  {
+    id: "offshoredrip",
+    title: "OffshoreDrip",
+    terminal: "$ offshoredrip --routes\n====================\n1. Home\n2. Products\n3. Cart\n4. Checkout\n5. Order Success\n6. Admin (auth required)",
+    desc: "A complete e-commerce website built solo for a shoe retail business, covering the full customer journey — home, product listings, cart, payment, and order success pages — alongside contact, policy, return policy, and business detail pages. Includes a full authentication system and an admin portal for managing live product listings, including media and video uploads. Backend built in PHP with a MySQL database.",
+    tags: ["PHP", "MySQL", "Full-stack", "Admin Portal", "Authentication"],
+    images: [],
+    links: [
+      { label: "Source ↗", url: "https://github.com/Parasraj35/OffshoreDrip" },
+      { label: "Live ↗", url: "https://offshoreddrip.infinityfree.io/?i=1" }
+    ]
+  },
+  {
+    id: "job-sims",
+    title: "Professional Job Simulations",
+    terminal: "✓ AIG — Cybersecurity Simulation\n✓ Deloitte — Data Analytics Simulation\n--------------------------------\nstatus: completed, Forage-verified",
+    desc: "Hands-on simulations of real corporate workflows — threat analysis and reporting with AIG, and data analytics case work with Deloitte — completed through Forage.",
+    tags: ["Cybersecurity", "Data Analytics"],
+    images: [],
+    links: []
+  }
+];
+
+const STORAGE_KEY = 'pr_projects';
+let projects = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed;
+    }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+}
+
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+  toast('Saved to this browser');
+  render();
+}
+
+function toast(msg){
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+function escapeHtml(str){
+  return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function addProject(){
+  projects.push({ id: 'project-' + Date.now(), title: 'New project', terminal: '', desc: '', tags: [], images: [], links: [] });
+  render();
+}
+
+function removeProject(i){
+  if(!confirm('Remove this project?')) return;
+  projects.splice(i, 1);
+  save();
+}
+
+function resetToDefaults(){
+  if(!confirm('This replaces all current projects with the original 3. Continue?')) return;
+  projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+  save();
+}
+
+function updateField(i, field, value){
+  projects[i][field] = value;
+}
+function updateTags(i, value){
+  projects[i].tags = value.split(',').map(s => s.trim()).filter(Boolean);
+}
+function updateLink(i, li, field, value){
+  projects[i].links[li][field] = value;
+}
+function addLink(i){
+  projects[i].links.push({ label: 'Link ↗', url: '' });
+  render();
+}
+function removeLink(i, li){
+  projects[i].links.splice(li, 1);
+  render();
+}
+function updateImage(i, ii, value){
+  projects[i].images[ii] = value;
+}
+function addImage(i){
+  projects[i].images.push('');
+  render();
+}
+function removeImage(i, ii){
+  projects[i].images.splice(ii, 1);
+  render();
+}
+
+function showExport(){
+  document.getElementById('export-box').value = JSON.stringify(projects, null, 2);
+  document.getElementById('export-card').style.display = 'block';
+  document.getElementById('export-card').scrollIntoView({ behavior: 'smooth' });
+}
+function copyExport(){
+  const box = document.getElementById('export-box');
+  box.select();
+  document.execCommand('copy');
+  toast('Copied');
+}
+
+function render(){
+  const list = document.getElementById('project-list');
+  if(!projects.length){
+    list.innerHTML = '<div class="empty">No projects yet. Click "+ Add project" to create one.</div>';
+    return;
+  }
+  list.innerHTML = projects.map((p, i) => `
+    <div class="card">
+      <div class="card-head">
+        <h3>${escapeHtml(p.title || 'Untitled project')}</h3>
+        <button class="btn-danger" onclick="removeProject(${i})">Remove</button>
+      </div>
+
+      <div class="field">
+        <label>Title</label>
+        <input value="${escapeHtml(p.title)}" oninput="updateField(${i},'title', this.value)">
+      </div>
+
+      <div class="field">
+        <label>Terminal preview (shown on the card — plain text, one line each)</label>
+        <textarea rows="4" oninput="updateField(${i},'terminal', this.value)">${escapeHtml(p.terminal)}</textarea>
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea rows="3" oninput="updateField(${i},'desc', this.value)">${escapeHtml(p.desc)}</textarea>
+      </div>
+
+      <div class="field">
+        <label>Tags (comma separated)</label>
+        <input value="${escapeHtml((p.tags || []).join(', '))}" oninput="updateTags(${i}, this.value)">
+      </div>
+
+      <div class="field">
+        <label>Project images (URLs — shown in the "View Project" popup carousel)</label>
+        <div class="images-list">
+          ${(p.images || []).map((img, ii) => `
+            <div class="image-row">
+              <input value="${escapeHtml(img)}" placeholder="https://…" oninput="updateImage(${i},${ii}, this.value)">
+              <button class="btn-danger" onclick="removeImage(${i},${ii})">✕</button>
+            </div>`).join('')}
+        </div>
+        <button class="btn-small" onclick="addImage(${i})">+ Add image URL</button>
+        <p class="hint">Leave empty for now — the popup will show a "image coming soon" placeholder until you add one.</p>
+      </div>
+
+      <div class="field">
+        <label>Links (Source, Live, etc.)</label>
+        <div class="links-list">
+          ${(p.links || []).map((l, li) => `
+            <div class="link-row">
+              <input value="${escapeHtml(l.label)}" placeholder="Label" style="max-width:140px;" oninput="updateLink(${i},${li},'label', this.value)">
+              <input value="${escapeHtml(l.url)}" placeholder="https://…" oninput="updateLink(${i},${li},'url', this.value)">
+              <button class="btn-danger" onclick="removeLink(${i},${li})">✕</button>
+            </div>`).join('')}
+        </div>
+        <button class="btn-small" onclick="addLink(${i})">+ Add link</button>
+      </div>
+    </div>
+  `).join('') + `<button class="btn" style="margin-top:6px;" onclick="save()">Save all changes</button>`;
+}
+
+render();
+</script>
+</body>
+</html>

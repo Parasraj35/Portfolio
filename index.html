@@ -50,31 +50,64 @@ nav .wrap{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    height:76px;
+    height:clamp(64px,9vw,76px);
     position:relative;
+    gap:16px;
 }
 
 .logo{
     font-family:var(--font-serif);
-    font-size:19px;
+    font-size:clamp(16px,2.4vw,19px);
     font-weight:600;
+    white-space:nowrap;
+    flex-shrink:0;
 }
 
 .menu-btn{
     display:none;
     background:none;
     border:none;
-    font-size:30px;
     cursor:pointer;
     color:var(--ink);
+    flex-shrink:0;
+    width:34px;
+    height:34px;
+    padding:0;
+    position:relative;
+    z-index:2;
 }
+
+.menu-btn span{
+    position:absolute;
+    left:5px;
+    right:5px;
+    height:2px;
+    background:currentColor;
+    border-radius:2px;
+    transition:transform .3s ease, opacity .25s ease, top .3s ease;
+}
+
+.menu-btn span:nth-child(1){top:11px;}
+.menu-btn span:nth-child(2){top:16px;}
+.menu-btn span:nth-child(3){top:21px;}
+
+.menu-btn.active span:nth-child(1){top:16px; transform:rotate(45deg);}
+.menu-btn.active span:nth-child(2){opacity:0;}
+.menu-btn.active span:nth-child(3){top:16px; transform:rotate(-45deg);}
 
 .navlinks{
     display:flex;
-    gap:32px;
+    align-items:center;
+    gap:clamp(16px,2.6vw,32px);
     font-size:13.5px;
     color:var(--ink-dim);
     font-weight:500;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.navlinks a{
+    white-space:nowrap;
 }
 
 .navlinks a:hover{
@@ -90,22 +123,41 @@ display:block;
 }
 
 .navlinks{
-display:none;
-flex-direction:column;
 position:absolute;
-top:76px;
+top:100%;
 left:0;
 width:100%;
 background:var(--bg);
-padding:20px;
-gap:18px;
+flex-direction:column;
+align-items:flex-start;
+gap:0;
 border-top:1px solid var(--line);
+box-shadow:0 12px 24px -12px rgba(0,0,0,.12);
+
+max-height:0;
+overflow:hidden;
+opacity:0;
+visibility:hidden;
+transition:max-height .35s ease, opacity .25s ease;
+}
+
+.navlinks a{
+width:100%;
+padding:16px 28px;
+border-bottom:1px solid var(--line);
 }
 
 .navlinks.active{
-display:flex;
+max-height:400px;
+opacity:1;
+visibility:visible;
 }
 
+}
+
+@media(max-width:380px){
+  .logo{font-size:15px;}
+  nav .wrap{padding-left:18px; padding-right:18px;}
 }
 
   /* HERO */
@@ -325,7 +377,9 @@ display:flex;
 
     <div class="logo">Paras Raj</div>
 
-    <button class="menu-btn" id="menu-btn">☰</button>
+    <button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
 
     <div class="navlinks" id="navlinks">
       <a href="#about">About</a>
@@ -563,9 +617,30 @@ display:flex;
 const menuBtn = document.getElementById("menu-btn");
 const navLinks = document.getElementById("navlinks");
 
+function setMenu(open){
+  navLinks.classList.toggle("active", open);
+  menuBtn.classList.toggle("active", open);
+  menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
 menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
+    setMenu(!navLinks.classList.contains("active"));
 });
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => setMenu(false));
+});
+
+document.addEventListener("click", (e) => {
+  if(navLinks.classList.contains("active") && !navLinks.contains(e.target) && !menuBtn.contains(e.target)){
+    setMenu(false);
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") setMenu(false);
+});
+
 </script>
 
 // 1. Sign up free at https://formspree.io using your email.

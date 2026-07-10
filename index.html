@@ -35,14 +35,78 @@
   .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
   .em{font-family:var(--font-serif); font-style:italic; font-weight:500; color:var(--accent);}
 
-  /* NAV */
-  nav{position:sticky; top:0; z-index:60; background:rgba(246,242,234,0.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .logo{font-family:var(--font-serif); font-weight:600; font-size:19px; letter-spacing:0.01em;}
-  .navlinks{display:flex; gap:32px; font-size:13.5px; color:var(--ink-dim); font-weight:500;}
-  .navlinks a:hover{color:var(--accent);}
-  .nav-cta{font-size:13px; font-weight:600; padding:11px 20px; border-radius:100px; background:var(--ink); color:var(--bg); white-space:nowrap;}
-  .nav-cta:hover{background:var(--accent);}
+/* NAV */
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:60;
+    background:rgba(246,242,234,.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+}
+
+nav .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:76px;
+    position:relative;
+}
+
+.logo{
+    font-family:var(--font-serif);
+    font-size:19px;
+    font-weight:600;
+}
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:none;
+    font-size:30px;
+    cursor:pointer;
+    color:var(--ink);
+}
+
+.navlinks{
+    display:flex;
+    gap:32px;
+    font-size:13.5px;
+    color:var(--ink-dim);
+    font-weight:500;
+}
+
+.navlinks a:hover{
+    color:var(--accent);
+}
+
+/* MOBILE */
+
+@media(max-width:819px){
+
+.menu-btn{
+display:block;
+}
+
+.navlinks{
+display:none;
+flex-direction:column;
+position:absolute;
+top:76px;
+left:0;
+width:100%;
+background:var(--bg);
+padding:20px;
+gap:18px;
+border-top:1px solid var(--line);
+}
+
+.navlinks.active{
+display:flex;
+}
+
+}
 
   /* HERO */
   .hero{padding:64px 0 40px;}
@@ -496,9 +560,13 @@
 </div>
 
 <script>
-const form = document.getElementById('contact-form');
-const status = document.getElementById('form-status');
-const submitBtn = document.getElementById('form-submit');
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("navlinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+</script>
 
 // 1. Sign up free at https://formspree.io using your email.
 // 2. Create a new form, copy the endpoint it gives you (looks like https://formspree.io/f/xxxxxxxx).

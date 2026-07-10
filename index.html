@@ -706,6 +706,10 @@ scrollTopBtn.addEventListener("click", () => {
 // 3. Paste it below in place of YOUR_FORM_ID.
 const FORM_ENDPOINT = "https://formspree.io/f/xaqgrpbl";
 
+const form = document.getElementById('contact-form');
+const status = document.getElementById('form-status');
+const submitBtn = document.getElementById('form-submit');
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   status.textContent = '';
@@ -742,7 +746,6 @@ const DEFAULT_PROJECTS = [
   {
     "id": "project-1783696476086",
     "title": "OFFSHOREDRIP",
-    "terminal": "",
     "desc": "Designed and developed a scalable full-stack e-commerce platform that streamlines online shopping and order management. The application includes secure user authentication, product browsing, shopping cart functionality, customer reviews, real-time order tracking, and an admin dashboard for inventory and order management. Performance is optimized through custom server-side caching, while comprehensive security measures—including prepared SQL statements, input sanitization, secure session handling, and role-based access control—ensure reliable and protected transactions.",
     "tags": [
       "HTML5 CSS3 JavaScript PHP MySQL"
@@ -766,27 +769,6 @@ const DEFAULT_PROJECTS = [
     images: [],
     links: [{ label: "Source ↗", url: "https://github.com/Parasraj35/Student-Management-System" }]
   },
-  {
-    id: "offshoredrip",
-    title: "OffshoreDrip",
-    terminal: "$ offshoredrip --routes\n====================\n1. Home\n2. Products\n3. Cart\n4. Checkout\n5. Order Success\n6. Admin (auth required)",
-    desc: "A complete e-commerce website built solo for a shoe retail business, covering the full customer journey — home, product listings, cart, payment, and order success pages — alongside contact, policy, return policy, and business detail pages. Includes a full authentication system and an admin portal for managing live product listings, including media and video uploads. Backend built in PHP with a MySQL database.",
-    tags: ["PHP", "MySQL", "Full-stack", "Admin Portal", "Authentication"],
-    images: [],
-    links: [
-      { label: "Source ↗", url: "https://github.com/Parasraj35/OffshoreDrip" },
-      { label: "Live ↗", url: "https://offshoreddrip.infinityfree.io/?i=1" }
-    ]
-  },
-  {
-    id: "job-sims",
-    title: "Professional Job Simulations",
-    terminal: "✓ AIG — Cybersecurity Simulation\n✓ Deloitte — Data Analytics Simulation\n--------------------------------\nstatus: completed, Forage-verified",
-    desc: "Hands-on simulations of real corporate workflows — threat analysis and reporting with AIG, and data analytics case work with Deloitte — completed through Forage.",
-    tags: ["Cybersecurity", "Data Analytics"],
-    images: [],
-    links: []
-  }
 ];
 
 function loadProjects(){

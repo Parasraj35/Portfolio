@@ -383,6 +383,30 @@ visibility:visible;
   .term-close:hover{color:var(--ink);}
   .term-body{padding:24px;}
 
+  .cert-modal-window{width:100%; max-width:800px; max-height:92vh; display:flex; flex-direction:column;}
+  .cert-frame-wrap{position:relative; flex:1; min-height:0; background:#525659;}
+  #cert-frame{width:100%; height:100%; min-height:70vh; border:none; display:block; background:#fff;}
+  .cert-mobile-fallback{
+    display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:14px; padding:56px 28px; background:var(--bg); min-height:52vh;
+  }
+  .cert-mobile-fallback svg{width:44px; height:44px; color:var(--ink-faint);}
+  .cert-mobile-fallback p{font-size:13.5px; color:var(--ink-dim); max-width:32ch;}
+  .cert-mobile-open{
+    display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:var(--bg);
+    font-weight:600; font-size:14px; padding:13px 22px; border-radius:30px; text-decoration:none;
+  }
+  .cert-footer{padding:12px 20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:12px; flex-shrink:0;}
+  .cert-footer a{font-size:13px; white-space:nowrap;}
+
+  @media(max-width:700px){
+    .modal-overlay{padding:0;}
+    .cert-modal-window{max-width:none; max-height:100vh; height:100vh; border-radius:0;}
+    .cert-frame-wrap{display:none;}
+    .cert-mobile-fallback{display:flex; flex:1;}
+    .term-title{max-width:56vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  }
+
   .carousel{position:relative; border-radius:10px; overflow:hidden; background:var(--ink); aspect-ratio:16/10; margin-bottom:20px;}
   .carousel-track{display:flex; height:100%; transition:transform .3s ease;}
   .carousel-slide{min-width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;}
@@ -675,17 +699,26 @@ visibility:visible;
 </div>
 
 <div class="modal-overlay" id="cert-modal" onclick="if(event.target===this) closeModals()">
-  <div class="term-window" style="max-width:760px;">
+  <div class="term-window cert-modal-window">
     <div class="term-titlebar">
       <div class="term-dots"><span></span><span></span><span></span></div>
       <span class="term-title" id="cert-modal-title">~/certificate</span>
       <button class="term-close" onclick="closeModals()">✕</button>
     </div>
-    <div class="term-body" style="padding:0;">
-      <iframe id="cert-frame" src="" title="Certificate preview" style="width:100%; height:72vh; border:none; display:block; background:#fff;"></iframe>
-      <div style="padding:14px 20px; border-top:1px solid var(--line);">
-        <a id="cert-open-link" href="" target="_blank" rel="noopener">Open in new tab ↗</a>
-      </div>
+
+    <div class="cert-frame-wrap">
+      <iframe id="cert-frame" src="" title="Certificate preview"></iframe>
+    </div>
+
+    <div class="cert-mobile-fallback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      <p>PDF preview isn't reliable in mobile browsers — tap below to open the certificate in your PDF viewer.</p>
+      <a class="cert-mobile-open" id="cert-mobile-link" href="" target="_blank" rel="noopener">Open Certificate ↗</a>
+    </div>
+
+    <div class="cert-footer">
+      <span id="cert-modal-issuer" style="font-size:12.5px; color:var(--ink-faint);"></span>
+      <a id="cert-open-link" href="" target="_blank" rel="noopener">Open in new tab ↗</a>
     </div>
   </div>
 </div>
@@ -902,9 +935,11 @@ function openResume(){
 }
 
 function openCert(file, title, issuer){
-  document.getElementById('cert-frame').src = file;
+  document.getElementById('cert-frame').src = file + '#toolbar=0&navpanes=0&view=FitH';
   document.getElementById('cert-open-link').href = file;
-  document.getElementById('cert-modal-title').textContent = title + (issuer ? ' — ' + issuer : '');
+  document.getElementById('cert-mobile-link').href = file;
+  document.getElementById('cert-modal-title').textContent = title;
+  document.getElementById('cert-modal-issuer').textContent = issuer || '';
   document.getElementById('cert-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }

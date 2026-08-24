@@ -211,6 +211,7 @@ visibility:visible;
   .stat-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px;}
   .stat-num{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:34px; color:var(--accent);}
   .stat-label{font-size:12.5px; color:var(--ink-dim); margin-top:4px;}
+  @media(min-width:900px){.hero-stats.stat-grid{grid-template-columns:repeat(4,1fr);}}
 
   /* ACADEMIC CARD (replaces stat grid) */
   .academic-card{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:32px;}
@@ -247,8 +248,9 @@ visibility:visible;
     position:absolute; top:12px; right:12px; background:rgba(30,33,28,0.85); color:#F1EFE9; font-family:var(--font-mono);
     font-size:11px; font-weight:500; padding:6px 11px; border-radius:100px; display:flex; align-items:center; gap:5px;
   }
-  .work-visual .c1{color:#7FD9A8;} .work-visual .c2{color:#E8B15B;} .work-visual .c3{color:#8FA9C9;}
   .work-body{padding:24px;}
+  .work-cmd{font-family:var(--font-mono); font-size:12px; color:var(--ink-dim); margin-bottom:10px; display:flex; align-items:center; gap:7px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .work-cmd::before{content:'$'; color:var(--terminal-green); font-weight:600; flex-shrink:0;}
   .work-title{font-size:17px; font-weight:600; margin-bottom:8px;}
   .work-desc{color:var(--ink-dim); font-size:14px; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
   .work-tags{display:flex; flex-wrap:wrap; gap:8px;}
@@ -429,6 +431,11 @@ visibility:visible;
 
   .resume-body{display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; padding:8px 0 4px;}
   .resume-body p{color:var(--ink-dim); font-size:14px; max-width:44ch;}
+
+  /* SCROLL REVEAL */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none;}}
 </style>
 </head>
 <body>
@@ -445,6 +452,7 @@ visibility:visible;
     <div class="navlinks" id="navlinks">
       <a href="#about">About</a>
       <a href="#what-i-do">What I Do</a>
+      <a href="#skills">Skills</a>
       <a href="#work">Work</a>
       <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
@@ -474,6 +482,12 @@ visibility:visible;
         View Projects ↗
     </a>
 </div>
+      <div class="stat-grid hero-stats" style="margin-top:30px; max-width:460px;">
+        <div class="stat-card"><div class="stat-num" id="hero-stat-projects">5+</div><div class="stat-label">Projects Shipped</div></div>
+        <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Certifications</div></div>
+        <div class="stat-card"><div class="stat-num">4+</div><div class="stat-label">Core Languages</div></div>
+        <div class="stat-card"><div class="stat-num">2027</div><div class="stat-label">Expected Grad</div></div>
+      </div>
       <div class="scroll-cue">
         <div class="scroll-dot">↓</div>
         scroll to explore
@@ -498,13 +512,13 @@ visibility:visible;
   <div class="wrap">
     <span class="section-tag">01 — About</span>
     <h2>A bit about how I work.</h2>
-    <div class="about-grid">
+    <div class="about-grid reveal">
       <div class="about-text">
         <p> <strong>Final-year Software Engineering student</strong>  at SZABIST Hyderabad, focused on Java development and backend fundamentals.</p>
         <p>Recently built a terminal-based Student Management System applying core OOP concepts (inheritance, encapsulation, ArrayLists) — live on GitHub. 
           Currently working on a SQL-based Library Management Database as my next project.</p>
           <p>Skilled in Java, Python, C++, and SQL, with working knowledge of HTML/CSS/JS. Certified in SQL & Relational Databases (IBM) and Prompt Engineering (AWS).</p>
-          <P>Looking for a Java Development / Software Engineering internship where I can apply what I've built and keep growing. Open to remote or on-site opportunities.</P>
+          <p>Looking for a Java Development / Software Engineering internship where I can apply what I've built and keep growing. Open to remote or on-site opportunities.</p>
         </div>
       <div class="academic-card">
         <h3 class="academic-title">Academic</h3>
@@ -513,7 +527,6 @@ visibility:visible;
           <div>Multiple Academic Projects</div>
           <div>Continuous Learning</div>
         </div>
-        <div class="academic-divider"></div>
         <div class="academic-summary">
           <span class="section-tag" style="margin-bottom:10px;">Summary</span>
           <p><strong>Career Objective:</strong> To secure an internship or entry-level role where I can apply my academic knowledge, sharpen my technical skills, and contribute to real software projects.</p>
@@ -529,7 +542,7 @@ visibility:visible;
     <span class="section-tag">02 — What I Do</span>
     <h2>Where I focus.</h2>
     <p class="section-desc">Still early in my career, but these are the areas I keep coming back to.</p>
-    <div class="do-list">
+    <div class="do-list reveal">
       <div class="do-item">
         <div class="do-num">01</div>
         <div><div class="do-title">Frontend Development</div><div class="do-desc">Building clean, responsive user interfaces with HTML, CSS, and JavaScript — structured to be easy to read and easy to extend.</div></div>
@@ -550,19 +563,53 @@ visibility:visible;
   </div>
 </section>
 
+<section id="skills">
+  <div class="wrap">
+    <span class="section-tag">03 — Skills</span>
+    <h2>Technologies I work with.</h2>
+    <p class="section-desc">The languages, tools, and concepts behind the projects below.</p>
+    <div class="cert-grid reveal">
+      <div class="stat-card">
+        <div class="info-label" style="margin-bottom:12px;">Languages</div>
+        <div class="work-tags">
+          <span class="tag">Java</span><span class="tag">Python</span><span class="tag">C++</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="info-label" style="margin-bottom:12px;">Web &amp; Frameworks</div>
+        <div class="work-tags">
+          <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Node.js</span><span class="tag">React</span><span class="tag">Express</span><span class="tag">PHP</span><span class="tag">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="info-label" style="margin-bottom:12px;">Databases &amp; APIs</div>
+        <div class="work-tags">
+          <span class="tag">MySQL</span><span class="tag">SQLite</span><span class="tag">JDBC</span><span class="tag">REST APIs</span><span class="tag">JWT Auth</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="info-label" style="margin-bottom:12px;">Tools &amp; Concepts</div>
+        <div class="work-tags">
+          <span class="tag">Git &amp; GitHub</span><span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">Maven</span><span class="tag">JSP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="work">
   <div class="wrap">
-    <span class="section-tag">03 — Selected Work</span>
+    <span class="section-tag">04 — Selected Work</span>
     <h2>Things I've built.</h2>
-    <div class="work-grid" id="work-grid"></div>
+    <div class="work-grid reveal" id="work-grid"></div>
   </div>
 </section>
 
 <section id="certifications" style="background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="wrap">
-    <span class="section-tag">04 — Certifications</span>
+    <span class="section-tag">05 — Certifications</span>
     <h2>Verified learning.</h2>
-    <div class="cert-grid">
+    <div class="cert-grid reveal">
       <div class="cert-row" style="cursor:pointer;" onclick="openCert('./certificate cyber.pdf',
        'Cybersecurity Job Simulation','AIG · via Forage')"><div class="cert-idx">01</div><div><div class="cert-name">Cybersecurity Job Simulation</div><div class="cert-issuer">AIG · via Forage</div></div><span class="cert-view">View Certificate ↗</span></div>
       <div class="cert-row" style="cursor:pointer;" onclick="openCert('./Data Analytics.pdf','Data Analytics Job Simulation','Deloitte · via Forage')"><div class="cert-idx">02</div><div><div class="cert-name">Data Analytics Job Simulation</div><div class="cert-issuer">Deloitte · via Forage</div></div><span class="cert-view">View Certificate ↗</span></div>
@@ -574,10 +621,10 @@ visibility:visible;
 
 <section class="contact-section" id="contact">
   <div class="wrap">
-    <span class="section-tag">05 — Contact</span>
+    <span class="section-tag">06 — Contact</span>
     <div class="contact-headline">Let's build something <span class="em">reliable</span> together.</div>
 
-    <div class="contact-split">
+    <div class="contact-split reveal">
       <div class="contact-info-card">
         <h3>Contact Directives</h3>
         <p class="contact-info-desc">Reach out directly for project inquiries, collaboration, or internship opportunities — I usually reply within a day.</p>
@@ -806,7 +853,7 @@ const DEFAULT_PROJECTS = [
 {
   id: "project-1783946907745",
   title: "SkyJourney — Full-Stack Travel Booking Platform",
-  desc: "SkyJourney is a full-stack travel booking platform — 16 responsive pages, JWT authentication, a MySQL database, and a REST API, built and deployed end-to-end. Bookings are priced and validated entirely server-side (never trusting client-submitted totals), flight seat inventory is locked with row-level transactions to prevent overbooking, and round-trip flights support independent fare classes per leg. Includessa role-based admin dashboard for managing packages and viewing live booking/revenue data.",
+  desc: "SkyJourney is a full-stack travel booking platform — 16 responsive pages, JWT authentication, a MySQL database, and a REST API, built and deployed end-to-end. Bookings are priced and validated entirely server-side (never trusting client-submitted totals), flight seat inventory is locked with row-level transactions to prevent overbooking, and round-trip flights support independent fare classes per leg. Includes a role-based admin dashboard for managing packages and viewing live booking/revenue data.",
   tags: [
     "JavaScript",
     "Node.js",
@@ -953,10 +1000,13 @@ function renderWorkGrid(){
     const iconBtn = iconLink
       ? `<a class="btn-view-icon" href="${escapeHtml(iconLink.url)}" target="_blank" rel="noopener" title="${escapeHtml(iconLink.label)}">↗</a>`
       : '';
+    const cmd = (p.terminal || '').split('\n')[0].trim();
+    const cmdLine = cmd ? `<div class="work-cmd">${escapeHtml(cmd.replace(/^\$\s*/, ''))}</div>` : '';
     return `
       <div class="work-card">
         <div class="work-thumb">${thumb}${badge}</div>
         <div class="work-body">
+          ${cmdLine}
           <div class="work-title">${escapeHtml(p.title)}</div>
           <p class="work-desc">${escapeHtml(p.desc || '')}</p>
           <div class="work-tags">${tags}</div>
@@ -1033,6 +1083,23 @@ function closeModals(){
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModals(); });
 
 renderWorkGrid();
+
+const heroProjectStat = document.getElementById('hero-stat-projects');
+if(heroProjectStat) heroProjectStat.textContent = PROJECTS.length + '+';
+
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+}
 </script>
 
 </body>

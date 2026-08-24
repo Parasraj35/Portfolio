@@ -5,80 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Paras Raj Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #F6F2EA;
-    --bg-alt: #EFEADD;
-    --card: #FCFAF5;
-    --ink: #1E211C;
-    --ink-dim: #5C6058;
-    --ink-faint: #9A9C93;
-    --line: #E0DBCB;
-    --accent: #2F4739;
-    --accent-soft: #E1E9E1;
-    --danger: #A5482E;
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{background:var(--bg); color:var(--ink); font-family:var(--font-sans); line-height:1.6; padding:0 0 80px;}
-  a{color:var(--accent);}
-  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
-  header{border-bottom:1px solid var(--line); padding:26px 0; margin-bottom:8px;}
-  header .wrap{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
-  .logo{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:19px;}
-  .logo span{color:var(--accent);}
-  header a.back{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-dim);}
-  header a.back:hover{color:var(--accent);}
-
-  .banner{
-    background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
-    font-size:13.5px; color:var(--ink-dim); margin:24px 0 32px;
-  }
-  .banner b{color:var(--accent);}
-
-  h1{font-size:24px; font-weight:600; margin-bottom:6px;}
-  .sub{color:var(--ink-dim); font-size:14px; margin-bottom:28px;}
-
-  .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;}
-  button{font-family:var(--font-sans); cursor:pointer; border:none;}
-  .btn{font-size:13.5px; font-weight:600; padding:11px 18px; border-radius:100px; background:var(--ink); color:var(--bg);}
-  .btn:hover{background:var(--accent);}
-  .btn-outline{font-size:13.5px; font-weight:600; padding:11px 18px; border-radius:100px; background:transparent; color:var(--ink); border:1px solid var(--line);}
-  .btn-outline:hover{border-color:var(--accent); color:var(--accent);}
-  .btn-danger{font-size:12px; font-weight:600; padding:8px 14px; border-radius:100px; background:transparent; color:var(--danger); border:1px solid var(--line);}
-  .btn-danger:hover{border-color:var(--danger);}
-  .btn-small{font-size:12px; font-weight:600; padding:8px 14px; border-radius:100px; background:var(--card); color:var(--ink); border:1px solid var(--line);}
-  .btn-small:hover{border-color:var(--accent); color:var(--accent);}
-
-  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin-bottom:18px;}
-  .card-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; gap:10px;}
-  .card-head h3{font-size:16px; font-weight:600;}
-  .field{margin-bottom:14px;}
-  .field label{display:block; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;}
-  .field input, .field textarea{
-    width:100%; font-family:var(--font-sans); font-size:14px; color:var(--ink);
-    background:var(--bg-alt); border:1px solid var(--line); border-radius:10px; padding:11px 14px; resize:vertical;
-  }
-  .field textarea{font-family:var(--font-mono); font-size:12.5px;}
-  .field input:focus, .field textarea:focus{outline:none; border-color:var(--accent);}
-  .field .hint{font-size:11.5px; color:var(--ink-faint); margin-top:5px;}
-  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  @media(max-width:600px){.row2{grid-template-columns:1fr;}}
-
-  .links-list, .images-list{display:flex; flex-direction:column; gap:8px; margin-bottom:10px;}
-  .link-row, .image-row{display:flex; gap:8px;}
-  .link-row input, .image-row input{flex:1;}
-
-  #status{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--bg);
-    font-family:var(--font-mono); font-size:12.5px; font-weight:600; padding:11px 20px; border-radius:100px;
-    opacity:0; transition:opacity .25s ease; pointer-events:none; z-index:50;}
-  #status.show{opacity:1;}
-
-  .empty{color:var(--ink-faint); font-size:13.5px; text-align:center; padding:30px 0;}
-  textarea#export-box{width:100%; min-height:160px; font-family:var(--font-mono); font-size:11.5px; background:var(--bg-alt); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px;}
-</style>
+<link rel="stylesheet" href="./admin.css">
 </head>
 <body>
 
@@ -109,10 +36,10 @@
 
   <div id="project-list"></div>
 
-  <div class="card" id="export-card" style="display:none;">
+  <div class="card" id="export-card">
     <div class="card-head"><h3>Export JSON</h3><button class="btn-small" onclick="copyExport()">Copy</button></div>
     <textarea id="export-box" readonly></textarea>
-    <p class="field hint" style="margin-top:8px;">Paste this in place of <code>DEFAULT_PROJECTS</code> in index.html to make it permanent for all visitors.</p>
+    <p class="field hint">Paste this in place of <code>DEFAULT_PROJECTS</code> in index.html to make it permanent for all visitors.</p>
   </div>
 </div>
 
@@ -224,7 +151,7 @@ function removeImage(i, ii){
 
 function showExport(){
   document.getElementById('export-box').value = JSON.stringify(projects, null, 2);
-  document.getElementById('export-card').style.display = 'block';
+  document.getElementById('export-card').classList.add('open');
   document.getElementById('export-card').scrollIntoView({ behavior: 'smooth' });
 }
 function copyExport(){
@@ -285,7 +212,7 @@ function render(){
         <div class="links-list">
           ${(p.links || []).map((l, li) => `
             <div class="link-row">
-              <input value="${escapeHtml(l.label)}" placeholder="Label" style="max-width:140px;" oninput="updateLink(${i},${li},'label', this.value)">
+              <input class="link-label" value="${escapeHtml(l.label)}" placeholder="Label" oninput="updateLink(${i},${li},'label', this.value)">
               <input value="${escapeHtml(l.url)}" placeholder="https://…" oninput="updateLink(${i},${li},'url', this.value)">
               <button class="btn-danger" onclick="removeLink(${i},${li})">✕</button>
             </div>`).join('')}
@@ -293,7 +220,7 @@ function render(){
         <button class="btn-small" onclick="addLink(${i})">+ Add link</button>
       </div>
     </div>
-  `).join('') + `<button class="btn" style="margin-top:6px;" onclick="save()">Save all changes</button>`;
+  `).join('') + `<button class="btn btn-save" onclick="save()">Save all changes</button>`;
 }
 
 render();

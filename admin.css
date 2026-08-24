@@ -1,15 +1,14 @@
   :root{
-    --bg: #F6F2EA;
-    --bg-alt: #EFEADD;
-    --card: #FCFAF5;
-    --ink: #1E211C;
-    --ink-dim: #5C6058;
-    --ink-faint: #9A9C93;
-    --line: #E0DBCB;
-    --accent: #2F4739;
-    --accent-soft: #E1E9E1;
-    --danger: #A5482E;
-    --font-serif: 'Playfair Display', serif;
+    --bg: #0D1117;
+    --bg-alt: #090C10;
+    --card: #161B22;
+    --ink: #E6EDF3;
+    --ink-dim: #8B949E;
+    --ink-faint: #6E7681;
+    --line: #30363D;
+    --accent: #3FB950;
+    --accent-soft: rgba(63,185,80,0.14);
+    --danger: #E8615B;
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
@@ -19,7 +18,7 @@
   .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
   header{border-bottom:1px solid var(--line); padding:26px 0; margin-bottom:8px;}
   header .wrap{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
-  .logo{font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:19px;}
+  .logo{font-family:var(--font-mono); font-weight:600; font-size:18px;}
   .logo span{color:var(--accent);}
   header a.back{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-dim);}
   header a.back:hover{color:var(--accent);}
